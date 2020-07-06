@@ -4,6 +4,8 @@ using namespace std;
 
 #define SIZE 10
 
+//                       Level order traversal 
+
 class Patient
 {
 	int pID; string pName;
@@ -17,7 +19,7 @@ public:
 	}
 };
 
-//                    For queue
+//                          For queue
 
 class Queue
 {
@@ -108,6 +110,7 @@ bool Queue::isQueueFull()
 
 //              End of queue
 
+
 /*
 
         Next tasks
@@ -119,9 +122,61 @@ Implement level order traversal
 
 */
 
+v/*oid LevelOrderTraversal(Patient *rootaddr)
+{
+	Queue q;
+	Patient* ptr;
+	ptr = rootaddr;
+
+	while (q != NULL)
+	{
+		ptr->
+	}
 
 
+}*/
 
+void LevelOrderTraversal(Patient* root)
+{
+	Patient* temp;
+
+	Queue *q = new Queue;
+
+	if (!root)
+	{
+		return;
+	}
+
+	q.enQueue(root);
+
+	while (!(q.isQueueEmpty()))
+	{
+		temp = q.deQueue();
+
+		cout << "Name of patient is: " << temp->pName << endl;
+		cout << "ID number of patient is: " << temp->pID << endl;
+
+		if (temp->left)
+		{
+			q.enQueue(temp->left);
+		}
+
+		if (temp->right)
+		{
+			q.enQueue(temp->right);
+		}
+
+	}
+
+	delete q;
+}
+
+//     Next task
+   
+int main()
+{
+
+}
 
 
 
