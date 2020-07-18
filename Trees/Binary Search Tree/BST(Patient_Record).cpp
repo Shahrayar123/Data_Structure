@@ -1,4 +1,8 @@
 #include<iostream>
+#include <string>
+#include <cstdlib>  //   For random number generation
+#include <ctime>    //    //  //     //      //
+
 using namespace std;
 
 class Patient
@@ -128,6 +132,31 @@ int getpID()
 	return pID;
 }
 
+int generateId()
+{
+	/*static int i = -1;
+	i++;*/
+
+	srand(time(0));
+
+	int idNum = (rand() % 1000) + 100;
+
+	return idNum;
+
+	//static int i = -1;
+	//i++;
+
+	//srand(time(0));
+
+	//for (int i = 0; i < 10; i++)
+	//{
+	//	int idNum = (rand() % 1000) + 100;
+
+	//	cout << idNum << endl;
+	//}
+
+}
+
 
 
 int menu()
@@ -151,6 +180,67 @@ int menu()
 
 int main()
 {
+	Patient* p;
+
+	string name, fname, address, disease, doctorName;
+	int choice, idNum, cnic;
+
+	while (true)
+	{
+		case 1:
+			cout << "Enter name of patient: ";
+			cin >> getline(cin, name);
+
+			cout << "Enter father name of patient: ";
+			cin >> getline(cin, fname);
+
+			cout << "Enter age of patient: ";
+			cin >> age;
+
+			cout << "Enter address of patient: ";
+			cin >> getline(cin, address);
+
+			cout << "Enter disease of patient: ";
+			cin >> disease;
+
+			cout << "Enter doctor's name of patient: ";
+			cin >> getline(cin, doctorName);
+
+			up:
+			cout << "\n------ Enter 1 to save record on basic of CNIC";
+			cout << "------ Enter 2 to save record on basic of ID number";
+			cout << "\nEnter your chocie: ";
+			cin >> chocie;
+
+			if (choice == 1)
+			{
+				cout << "Enter cnic of patient: ";
+				cin >> cnic;
+
+			}
+
+			else if (choice == 2)
+			{
+				idNum = generateId();
+			}
+
+			else
+			{
+				cout << "Invalid choice";
+				goto up;
+			}
+
+			break;
+
+		case 2:
+		case 3:
+		case 4:
+		case 0:
+
+		default:
+			cout << "Invalid choice" << endl;
+
+	}
 
 
 }
