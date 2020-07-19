@@ -8,8 +8,8 @@ using namespace std;
 class Patient
 {
 	string pName, pfName, pAddress, pDisease, pDoctorName;
-	int pAge, pNIC, pID;           
-	                        // pID and pNIC must be unique
+	int pAge, pNIC, pID;
+	// pID and pNIC must be unique
 
 	Patient* left, * right;
 
@@ -44,11 +44,70 @@ public:
 	void setpID(int);
 	int getpID();
 
-
-
-
-
+	Patient* find(Patient*, int);
+	void insert(Patient*, int);
+		
 };
+
+Patient* Patient::find(Patient* root, int id)
+{
+	if (root == NULL)    // only consider ID
+		return NULL;
+
+	if (id < root->pID)
+	{
+		return (find(root->left, id));
+	}
+
+	else if (id > root->pID)
+	{
+		return (find(root->right, id));
+	}
+
+	return root;
+}
+
+void Patient::insert(Patient* root, int id)  // only consider ID
+{
+	Patient* par; // contain address of parent node on which we add the new node   
+
+	Patient* n = new Patient;
+
+	n->left = NULL;
+	n->right = NULL;
+
+	if (root == NULL)
+	{
+		root = n;
+	}
+
+	else
+	{
+		par = root;
+
+		while (par != NULL)
+		{
+			if (par->pID > id)
+			{
+				if (par->left == NULL)
+					par->left = n;
+
+				par = par->left;
+			}
+
+			else if (par->pID < id)
+			{
+				if (par->right == NULL)
+					par->right = n;
+
+				par = par->left;
+			}
+			
+
+		}
+	}
+
+}
 
 
 void Patient::setpName(string name)
@@ -76,9 +135,9 @@ void Patient::setpAddress(string pAddr)
 	pAddress = pAddr;
 }
 
-string getpAddress()
+string Patient::getpAddress()
 {
-	return pAddr;
+	return pAddress;
 }
 
 void Patient::setpDisease(string dis)
@@ -96,22 +155,22 @@ void Patient::setpDoctorName(string doctorName)
 	pDoctorName = doctorName;
 }
 
-string getpDoctorName()
+string Patient::getpDoctorName()
 {
 	return pDoctorName;
 }
 
-void setpAge(int age)
+void Patient::setpAge(int age)
 {
 	pAge = age;
 }
 
-int getpAge()
+int Patient::getpAge()
 {
 	return pAge;
 }
 
-void Patient::setpNIC(int cnic)
+void Patient::setpNIC(int cnic = 0)
 {
 	pNIC = cnic;
 }
@@ -122,15 +181,17 @@ int Patient::getpNIC()
 }
 
 
-void Patient::setpID(int id)
+void Patient::setpID(int id = 0)
 {
 	pID = id;
 }
 
-int getpID()
+int Patient::getpID()
 {
 	return pID;
 }
+
+//             Generate random id number
 
 int generateId()
 {
@@ -161,7 +222,7 @@ int generateId()
 
 int menu()
 {
-	int chocie;
+	int choice;
 
 	cout << "\n1- To save record of patient" << endl;
 	cout << "2- To find record of patient" << endl;
@@ -177,51 +238,67 @@ int menu()
 }
 
 
+Patient* root = NULL;     // points to root node
 
 int main()
 {
-	Patient* p;
+	
 
 	string name, fname, address, disease, doctorName;
-	int choice, idNum, cnic;
+	int age, choice, idNum, cnic;
 
 	while (true)
 	{
+		Patient* p;
+
+		switch (menu())
+		{
+
+
 		case 1:
 			cout << "Enter name of patient: ";
-			cin >> getline(cin, name);
+			cin.ignore();
+			getline(cin, name);
 
 			cout << "Enter father name of patient: ";
-			cin >> getline(cin, fname);
+			getline(cin, fname);
 
 			cout << "Enter age of patient: ";
 			cin >> age;
 
 			cout << "Enter address of patient: ";
-			cin >> getline(cin, address);
+			cin.ignore();
+			getline(cin, address);
 
 			cout << "Enter disease of patient: ";
 			cin >> disease;
 
 			cout << "Enter doctor's name of patient: ";
-			cin >> getline(cin, doctorName);
+			cin.ignore();
+			getline(cin, doctorName);
 
-			up:
-			cout << "\n------ Enter 1 to save record on basic of CNIC";
-			cout << "------ Enter 2 to save record on basic of ID number";
+		up:
+			cout << "\n------ Enter 1 to save record on basic of CNIC"<<endl;
+			cout << "------ Enter 2 to save record on basic of ID number"<<endl;
 			cout << "\nEnter your chocie: ";
-			cin >> chocie;
+			cin >> choice;
 
 			if (choice == 1)
 			{
+				idNum = 0;    // now we not concern with this
+
 				cout << "Enter cnic of patient: ";
 				cin >> cnic;
+
 
 			}
 
 			else if (choice == 2)
 			{
+				cnic = 0;     // now we not concern with this
+
 				idNum = generateId();
+
 			}
 
 			else
@@ -230,16 +307,28 @@ int main()
 				goto up;
 			}
 
+			p->setpName(name);
+			p->setpFatherName(fname);
+			p->setpAddress(address);
+			p->setpAge(age);
+			p->setpDisease(disease);
+			p->setpDoctorName(doctorName);
+			p->setpID(idNum);
+			p->setpNIC(cnic);
+
 			break;
 
 		case 2:
 		case 3:
 		case 4:
+
 		case 0:
+			exit(0);
 
 		default:
 			cout << "Invalid choice" << endl;
 
+		}
 	}
 
 
