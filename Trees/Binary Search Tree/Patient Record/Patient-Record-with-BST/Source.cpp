@@ -46,8 +46,13 @@ public:
 
 	Patient* find(Patient*, int);
 	void insert(Patient*, int);
-		
+	Patient* deleteNode(Patient*, int);
+
+	Patient* findMax(Patient*);
+
 };
+
+				/*   Find node in BST    */
 
 Patient* Patient::find(Patient* root, int id)
 {
@@ -66,6 +71,8 @@ Patient* Patient::find(Patient* root, int id)
 
 	return root;
 }
+
+				/*   Insert node in BST    */
 
 void Patient::insert(Patient* root, int id)  // only consider ID
 {
@@ -102,10 +109,87 @@ void Patient::insert(Patient* root, int id)  // only consider ID
 
 				par = par->left;
 			}
-			
+
 
 		}
 	}
+
+}
+
+Patient* Patient::findMax(Patient* root)
+{
+	Patient* max;
+
+	while (root->left != NULL && root->right != NULL)
+	{
+		max = root;
+		int id;
+
+		id = root->pID;
+
+		if (root->left == NULL)
+		{
+			
+			max = findMax(root->right);
+		}
+
+		else if (root->right == NULL)
+		{
+			max = findMax(root->left);
+		}
+
+	}
+
+
+
+}
+
+				/*   Delete node in BST    */
+
+	/*
+		Three cases in deleting a BST node
+		1- If the element to be deleted is a leaf node
+		2- If the element to be deleted has one child
+		3- If the element to be deleted has both child
+
+		----------------------------------------------
+		Two way to delete node in BST
+		--> delete by mering
+		--> delete by copying
+
+	 */
+
+Patient* Patient::deleteNode(Patient* root, int idNum)
+{
+	Patient* temp;
+
+	if (root == NULL)   // no node exist
+	{
+		cout << "No record exist" << endl;
+		return;
+	}
+
+	else if(idNum < root->pID)
+	{
+		root->left = deleteNode(root->left, idNum);
+	}
+
+	else if (idNum > root->pID)
+	{
+		root->right = deleteNode(root->right, idNum);
+	}
+
+	else		// elemnt found
+	{
+		if (root->left && root->right)  // if both child exist
+		{
+			temp = 
+
+		}
+
+	}
+	
+	
 
 }
 
@@ -242,8 +326,6 @@ Patient* root = NULL;     // points to root node
 
 int main()
 {
-	
-
 	string name, fname, address, disease, doctorName;
 	int age, choice, idNum, cnic;
 
@@ -278,8 +360,8 @@ int main()
 			getline(cin, doctorName);
 
 		up:
-			cout << "\n------ Enter 1 to save record on basic of CNIC"<<endl;
-			cout << "------ Enter 2 to save record on basic of ID number"<<endl;
+			cout << "\n------ Enter 1 to save record on basic of CNIC" << endl;
+			cout << "------ Enter 2 to save record on basic of ID number" << endl;
 			cout << "\nEnter your chocie: ";
 			cin >> choice;
 
@@ -333,21 +415,5 @@ int main()
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
