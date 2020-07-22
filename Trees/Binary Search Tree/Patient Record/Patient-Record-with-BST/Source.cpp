@@ -118,27 +118,37 @@ void Patient::insert(Patient* root, int id)  // only consider ID
 
 Patient* Patient::findMax(Patient* root)
 {
-	Patient* max;
+	Patient* current=root;
 
-	while (root->left != NULL && root->right != NULL)
-	{
-		max = root;
-		int id;
+		/* loop down to find the rightmost leaf */
+//		struct node* current = node;
 
-		id = root->pID;
 
-		if (root->left == NULL)
-		{
-			
-			max = findMax(root->right);
-		}
+		while (current->right != NULL)
+			current = current->right;
 
-		else if (root->right == NULL)
-		{
-			max = findMax(root->left);
-		}
+		return (current);
+	
 
-	}
+	//while (root->left != NULL && root->right != NULL)
+	//{
+	//	max = root;
+	//	int id;
+
+	//	id = root->pID;
+
+	//	if (root->left == NULL)
+	//	{
+	//		
+	//		max = findMax(root->right);
+	//	}
+
+	//	else if (root->right == NULL)
+	//	{
+	//		max = findMax(root->left);
+	//	}
+
+	//}
 
 
 
@@ -183,9 +193,11 @@ Patient* Patient::deleteNode(Patient* root, int idNum)
 	{
 		if (root->left && root->right)  // if both child exist
 		{
-			temp = 
+			temp = findMax(root->left);
+			//root->
 
 		}
+
 
 	}
 	
